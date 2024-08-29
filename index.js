@@ -65,7 +65,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 // Configure the express server to serve static files from the "upload" directory
-app.get('/', "Hello world!");
+
 app.use(
     "/uploads", // mount path
     express.static("uploads") // directory to serve
@@ -82,6 +82,9 @@ app.use(cookieParser());
 app.use(checkAuthentication);
 
 
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+  });
 // Define project routers
 // Use the user authentication router for routes starting with "/api/auth".
 app.use("/api/auth", userAuthRouter);
