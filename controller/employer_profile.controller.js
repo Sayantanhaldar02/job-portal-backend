@@ -23,7 +23,7 @@ const handel_create_employer_profile = async (req, res) => {
         // If no profile exists, create a new employer profile using the request body.
         // const new_profile = await new EmployerProfileModel(req.body);
         const new_profile = await EmployerProfileModel.create(req.body)
-        new_profile.company_logo = req.files.company_logo[0].path; // Set the company_logo field to the
+        new_profile.company_logo = req.files['company_logo'] && req.files['company_logo'][0]; // Set the company_logo field to the
         new_profile.created_by = req.user.user_id; // Set the created_by field to the user's ID.
         await new_profile.save(); // Save the new profile to the database.
 
@@ -81,7 +81,7 @@ const handel_update_employer_profile = async (req, res) => {
             created_by: id
         }, {
             ...update_element,
-            company_logo: req.files.company_logo ? req.files.company_logo[0].path : emp_p.company_logo,
+            company_logo: req.files['company_logo'] ? req.files['company_logo'][0] : emp_p.company_logo,
         }, {
             runValidators: true, // Ensure the update data passes schema validation.
             new: true // Return the updated profile.

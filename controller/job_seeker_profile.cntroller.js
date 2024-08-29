@@ -19,8 +19,8 @@ const handel_create_job_seeker_profile = async (req, res) => {
         // Create a new JobSeekerProfile instance with the request body data
         const new_job_seeker = await new JobSeekerProfileModel(req.body);
         new_job_seeker.user_id = req.user.user_id; // Assign the user ID to the profile
-        new_job_seeker.profile_photo = req.files.profile_photo && req.files.profile_photo[0].path; // Assign the path of the profile photo
-        new_job_seeker.resume = req.files.resume && req.files.resume[0].path; // Assign the path of the resume
+        new_job_seeker.profile_photo = req.files['profile_photo'] && req.files['profile_photo'][0]; // Assign the path of the profile photo
+        new_job_seeker.resume = req.files['resume'] && req.files['resume'][0]; // Assign the path of the resume
         await new_job_seeker.save(); // Save the new profile to the database
 
         return res.status(201).json({
@@ -68,8 +68,8 @@ const handel_update_job_seeker_profile = async (req, res) => {
             user_id: req.user.user_id
         }, {
             ...update_element, // Spread the update elements into the update query
-            profile_photo: req.files.profile_photo ? req.files.profile_photo[0].path : profile.profile_photo, // Update profile photo if provided
-            resume: req.files.resume ? req.files.resume[0].path : profile.resume, // Update resume if provided
+            profile_photo: req.files['profile_photo'] ? req.files['profile_photo'][0] : profile.profile_photo, // Update profile photo if provided
+            resume: req.files['resume'] ? req.files['resume'][0] : profile.resume, // Update resume if provided
         }, {
             runValidators: true, // Run validators to ensure data integrity
             new: true // Return the updated document
@@ -99,7 +99,7 @@ const handel_deletee_job_seeker_profile = async (req, res) => {
     try {
         
         await profile.deleteOne(); // Delete the profile from the database (commented out)
-        delete_sub_folder(`jobseeker/${req.user.user_id}`); // Call the service to delete the user's folder
+        // delete_sub_folder(`jobseeker/${req.user.user_id}`); // Call the service to delete the user's folder
         res.status(200).json({
             message: "Profile deleted successfully!" // Respond with success message
         });
