@@ -65,6 +65,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 // Configure the express server to serve static files from the "upload" directory
+app.get('/', "Hello world!");
 app.use(
     "/uploads", // mount path
     express.static("uploads") // directory to serve
