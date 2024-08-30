@@ -43,7 +43,7 @@ const handel_create_employer_profile = async (req, res) => {
         new_profile.company_logo = req.files.company_logo &&  await Cloudnary_image_service(req.files.company_logo); // Set the company_logo field to the
         console.log(new_profile.company_logo)
         new_profile.created_by = req.user.user_id; // Set the created_by field to the user's ID.
-        // await new_profile.save(); // Save the new profile to the database.
+        await new_profile.save(); // Save the new profile to the database.
 
         // Return a success response with the newly created profile.
         return res.status(201).json({
