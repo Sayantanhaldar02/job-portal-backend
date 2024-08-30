@@ -15,22 +15,8 @@ const {
 const {
     authenticateTo
 } = require("../middleware/auth.middleware");
-const {
-    image_upload_middleware
-} = require("../middleware/job_seeker_image.middleware");
-const multer = require("multer");
 // Import the authenticateTo middleware function from the auth.middleware file, which is used to enforce role-based access control.
 
-
-
-
-const upload = multer({
-    dest: '/upload_image'
-})
-const cpUpload = upload.fields([{
-    name: 'com_image',
-    maxCount: 1
-}])
 
 
 const router = Router();
@@ -43,7 +29,7 @@ router.route("/")
     // If the user is authenticated, the handel_get_employer_profile function is called to handle the request.
 
     .post(authenticateTo(["employer"]), handel_create_employer_profile)
-    // .post(authenticateTo(["employer"]), image_upload_middleware("employer"), handel_create_employer_profile)
+
     // Define a POST route on the root path ("/").
     // The route first applies the authenticateTo middleware to ensure only users with the "employer" role can access it.
     // If the user is authenticated, the handel_create_employer_profile function is called to handle the request.

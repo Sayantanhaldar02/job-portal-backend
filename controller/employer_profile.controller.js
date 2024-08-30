@@ -1,7 +1,6 @@
 const EmployerProfileModel = require("../models/employer_profile.model");
 const TestModel = require("../models/test_model");
 const {
-    delete_sub_folder,
     Cloudnary_image_service
 } = require("../service/job_seeker_image.service");
 // Import the EmployerProfileModel to interact with the employer profile collection in the database.
@@ -133,7 +132,6 @@ const handel_delete_employer_profile = async (req, res) => {
     });
 
     // Delete the profile from the database.
-    delete_sub_folder(`employer/${req.user.user_id}`);
     await emp_p.deleteOne();
     // Return a success response indicating the profile was deleted.
     return res.status(200).json({
@@ -141,24 +139,24 @@ const handel_delete_employer_profile = async (req, res) => {
     });
 }
 
-const handel_employer_profile_image = async (req, res) => {
-    try {
-        // console.log(req.files)
-        const test = await new TestModel(req.body);
-        test.com_image = req.files.com_image[0].path;
-        test.user_id = req.user.user_id;
-        await test.save();
-        return res.status(201).json({
-            message: "Image Inserted successfully"
-        });
-    } catch (error) {
-        return res.status(400).json({
-            message: "image not upload",
-            error:error.message
-        });
-    }
+// const handel_employer_profile_image = async (req, res) => {
+//     try {
+//         // console.log(req.files)
+//         const test = await new TestModel(req.body);
+//         test.com_image = req.files.com_image[0].path;
+//         test.user_id = req.user.user_id;
+//         await test.save();
+//         return res.status(201).json({
+//             message: "Image Inserted successfully"
+//         });
+//     } catch (error) {
+//         return res.status(400).json({
+//             message: "image not upload",
+//             error:error.message
+//         });
+//     }
 
-}
+// }
 
 module.exports = {
     handel_create_employer_profile,

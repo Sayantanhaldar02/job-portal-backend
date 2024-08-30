@@ -42,39 +42,39 @@ const cloudinary = require("cloudinary").v2;
 
 
 
-function delete_sub_folder(dirPath) {
-  dirPath = `./uploads/${dirPath}`;
-  fs.readdir(dirPath, {
-    withFileTypes: true
-  }, (err, files) => {
-    if (err) {
-      console.error(`Error reading directory: ${dirPath}`, err);
-      return;
-    }
+// function delete_sub_folder(dirPath) {
+//   dirPath = `./uploads/${dirPath}`;
+//   fs.readdir(dirPath, {
+//     withFileTypes: true
+//   }, (err, files) => {
+//     if (err) {
+//       console.error(`Error reading directory: ${dirPath}`, err);
+//       return;
+//     }
 
-    files.forEach((file) => {
-      const filePath = path.join(dirPath, file.name);
+//     files.forEach((file) => {
+//       const filePath = path.join(dirPath, file.name);
 
-      if (file.isDirectory()) {
-        delete_sub_folder(filePath); // Recursively remove subdirectories
-      } else {
-        fs.unlink(filePath, (err) => {
-          if (err) {
-            console.error(`Error deleting file: ${filePath}`, err);
-          }
-        });
-      }
-    });
+//       if (file.isDirectory()) {
+//         delete_sub_folder(filePath); // Recursively remove subdirectories
+//       } else {
+//         fs.unlink(filePath, (err) => {
+//           if (err) {
+//             console.error(`Error deleting file: ${filePath}`, err);
+//           }
+//         });
+//       }
+//     });
 
-    fs.rmdir(dirPath, (err) => {
-      if (err) {
-        console.error(`Error removing directory: ${dirPath}`, err);
-      } else {
-        console.log(`Directory removed: ${dirPath}`);
-      }
-    });
-  });
-}
+//     fs.rmdir(dirPath, (err) => {
+//       if (err) {
+//         console.error(`Error removing directory: ${dirPath}`, err);
+//       } else {
+//         console.log(`Directory removed: ${dirPath}`);
+//       }
+//     });
+//   });
+// }
 
 
 
@@ -100,6 +100,6 @@ const Cloudnary_image_service = (file) => {
 
 
 module.exports = {
-  delete_sub_folder, // Export the delete_sub_folder function for use in other parts of the application
+  // delete_sub_folder, // Export the delete_sub_folder function for use in other parts of the application
   Cloudnary_image_service
 };

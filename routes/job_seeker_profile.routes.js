@@ -10,9 +10,7 @@ const {
     handel_update_job_seeker_profile,
     handel_deletee_job_seeker_profile,
 } = require("../controller/job_seeker_profile.cntroller"); // Import the controller functions for job seeker profile operations
-const {
-    image_upload_middleware
-} = require("../middleware/job_seeker_image.middleware"); // Import the image upload middleware
+ // Import the image upload middleware
 const router = Router(); // Create a new router instance
 
 // Define routes for job seeker profile operations

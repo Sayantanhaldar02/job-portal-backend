@@ -52,13 +52,13 @@ db_connection(process.env.MONGO_URL);
 // Use middlewares
 // Enable CORS for handling cross-origin requests.
 app.use(cors({
-    origin:["*"],
-    methods:["GET", "POST", "PUT", "PATCH","DELETE"],
-    credentials:true
+    origin: ["*"],
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+    credentials: true
 }));
 
 app.use(fileUpload({
-    useTempFiles:true,
+    useTempFiles: true,
 }));
 
 // Parse URL-encoded data with the querystring library.
@@ -71,14 +71,14 @@ app.use(express.json());
 
 // Configure the express server to serve static files from the "upload" directory
 
-app.use(
-    "/uploads", // mount path
-    express.static("uploads") // directory to serve
-);
-app.use(
-    "/upload_image", // mount path
-    express.static("upload_image") // directory to serve
-);
+// app.use(
+//     "/uploads", // mount path
+//     express.static("uploads") // directory to serve
+// );
+// app.use(
+//     "/upload_image", // mount path
+//     express.static("upload_image") // directory to serve
+// );
 
 // Parse cookies attached to the client request.
 app.use(cookieParser());
@@ -89,7 +89,7 @@ app.use(checkAuthentication);
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
-  });
+});
 // Define project routers
 // Use the user authentication router for routes starting with "/api/auth".
 app.use("/api/auth", userAuthRouter);

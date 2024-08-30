@@ -1,9 +1,8 @@
-const { image_upload_middleware } = require("../middleware/job_seeker_image.middleware");
+
 const JobSeekerProfileModel = require("../models/job_seeker_profile.models"); // Import the JobSeekerProfileModel from the models folder
-const { delete_sub_folder, Cloudnary_image_service } = require("../service/job_seeker_image.service"); // Import the delete_sub_folder service function
+const { Cloudnary_image_service } = require("../service/job_seeker_image.service"); // Import the delete_sub_folder service function
 
 // Create job seeker profile handler function
-// image_upload_middleware("jobseeker")
 const handel_create_job_seeker_profile = async (req, res) => {
     // console.log(req.body)
     // console.log(req.files.profile_photo)
@@ -99,7 +98,6 @@ const handel_deletee_job_seeker_profile = async (req, res) => {
     try {
         
         await profile.deleteOne(); // Delete the profile from the database (commented out)
-        // delete_sub_folder(`jobseeker/${req.user.user_id}`); // Call the service to delete the user's folder
         res.status(200).json({
             message: "Profile deleted successfully!" // Respond with success message
         });
