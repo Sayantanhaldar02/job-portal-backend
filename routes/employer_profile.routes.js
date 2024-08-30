@@ -42,12 +42,13 @@ router.route("/")
     // The route first applies the authenticateTo middleware to ensure only users with the "employer" role can access it.
     // If the user is authenticated, the handel_get_employer_profile function is called to handle the request.
 
-    .post(authenticateTo(["employer"]), image_upload_middleware("employer"), handel_create_employer_profile)
+    .post(authenticateTo(["employer"]), handel_create_employer_profile)
+    // .post(authenticateTo(["employer"]), image_upload_middleware("employer"), handel_create_employer_profile)
     // Define a POST route on the root path ("/").
     // The route first applies the authenticateTo middleware to ensure only users with the "employer" role can access it.
     // If the user is authenticated, the handel_create_employer_profile function is called to handle the request.
 
-    .patch(authenticateTo(["employer"]), image_upload_middleware("employer"), handel_update_employer_profile)
+    .patch(authenticateTo(["employer"]), handel_update_employer_profile)
     // Define a PATCH route on the root path ("/").
     // The route first applies the authenticateTo middleware to ensure only users with the "employer" role can access it.
     // If the user is authenticated, the handel_update_employer_profile function is called to handle the request.

@@ -1,6 +1,6 @@
 const { image_upload_middleware } = require("../middleware/job_seeker_image.middleware");
 const JobSeekerProfileModel = require("../models/job_seeker_profile.models"); // Import the JobSeekerProfileModel from the models folder
-const { delete_sub_folder } = require("../service/job_seeker_image.service"); // Import the delete_sub_folder service function
+const { delete_sub_folder, Cloudnary_image_service } = require("../service/job_seeker_image.service"); // Import the delete_sub_folder service function
 
 // Create job seeker profile handler function
 // image_upload_middleware("jobseeker")
@@ -19,8 +19,8 @@ const handel_create_job_seeker_profile = async (req, res) => {
         // Create a new JobSeekerProfile instance with the request body data
         const new_job_seeker = await new JobSeekerProfileModel(req.body);
         new_job_seeker.user_id = req.user.user_id; // Assign the user ID to the profile
-        new_job_seeker.profile_photo = req.files['profile_photo'] && req.files['profile_photo'][0]; // Assign the path of the profile photo
-        new_job_seeker.resume = req.files['resume'] && req.files['resume'][0]; // Assign the path of the resume
+        new_job_seeker.profile_photo = req.files.profile_photo && await Cloudnary_image_service(req.files.profile_photo); // Assign the path of the profile photo
+        new_job_seeker.resume = req.files.resume && await Cloudnary_image_service(req.files.resume); // Assign the path of the resume
         await new_job_seeker.save(); // Save the new profile to the database
 
         return res.status(201).json({
@@ -68,8 +68,8 @@ const handel_update_job_seeker_profile = async (req, res) => {
             user_id: req.user.user_id
         }, {
             ...update_element, // Spread the update elements into the update query
-            profile_photo: req.files['profile_photo'] ? req.files['profile_photo'][0] : profile.profile_photo, // Update profile photo if provided
-            resume: req.files['resume'] ? req.files['resume'][0] : profile.resume, // Update resume if provided
+            profile_photo: req.files.profile_photo ? await Cloudnary_image_service(req.files.profile_photo) : profile.profile_photo, // Update profile photo if provided
+            resume: req.files.resume ? await Cloudnary_image_service(req.files.resume) : profile.resume, // Update resume if provided
         }, {
             runValidators: true, // Run validators to ensure data integrity
             new: true // Return the updated document

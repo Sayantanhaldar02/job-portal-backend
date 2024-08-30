@@ -18,8 +18,8 @@ const router = Router(); // Create a new router instance
 // Define routes for job seeker profile operations
 router.route("/")
     .get(authenticateTo(["jobseeker"]), handel_get_job_seeker_profile) // Route for getting a job seeker profile, with authentication
-    .post(authenticateTo(["jobseeker"]), image_upload_middleware("jobseeker"), handel_create_job_seeker_profile) // Route for creating a job seeker profile, with authentication and file upload handling
-    .patch(authenticateTo(["jobseeker"]), image_upload_middleware("jobseeker"), handel_update_job_seeker_profile) // Route for updating a job seeker profile, with authentication and file upload handling
+    .post(authenticateTo(["jobseeker"]), handel_create_job_seeker_profile) // Route for creating a job seeker profile, with authentication and file upload handling
+    .patch(authenticateTo(["jobseeker"]), handel_update_job_seeker_profile) // Route for updating a job seeker profile, with authentication and file upload handling
     .delete(authenticateTo(["jobseeker"]), handel_deletee_job_seeker_profile); // Route for deleting a job seeker profile, with authentication and file upload handling
 
 // Export the router to be used in other parts of the application

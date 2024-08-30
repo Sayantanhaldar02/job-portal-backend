@@ -1,6 +1,7 @@
+require('dotenv').config();
 const fs = require('fs'); // Import the fs (file system) module to interact with the file system
 const path = require('path');
-
+const cloudinary = require("cloudinary").v2;
 // Function to delete a sub-folder and its contents
 // function delete_sub_folder(folder_name) {
 //     const sub_folder_path = `./uploads/jobseeker/${folder_name}`; // Construct the path to the sub-folder using the folder name
@@ -42,8 +43,10 @@ const path = require('path');
 
 
 function delete_sub_folder(dirPath) {
-    dirPath=`./uploads/${dirPath}`;
-  fs.readdir(dirPath, { withFileTypes: true }, (err, files) => {
+  dirPath = `./uploads/${dirPath}`;
+  fs.readdir(dirPath, {
+    withFileTypes: true
+  }, (err, files) => {
     if (err) {
       console.error(`Error reading directory: ${dirPath}`, err);
       return;
@@ -73,6 +76,30 @@ function delete_sub_folder(dirPath) {
   });
 }
 
+
+
+
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+const Cloudnary_image_service = (file) => {
+  return new Promise((resolve, reject) => {
+    cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(result.secure_url);
+    });
+  });
+}
+
+
+
 module.exports = {
-    delete_sub_folder // Export the delete_sub_folder function for use in other parts of the application
+  delete_sub_folder, // Export the delete_sub_folder function for use in other parts of the application
+  Cloudnary_image_service
 };

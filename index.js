@@ -1,6 +1,6 @@
 const express = require("express");
 // Import the Express library to create the application and handle routing.
-
+require('dotenv').config();
 const db_connection = require("./config/dbcongfig");
 // Import the database connection function from the config/dbcongfig file.
 
@@ -38,13 +38,14 @@ const {
 } = require("./routes/job_application.routes");
 // Import the job_seeker profile router from the job_seeker_profile.routes file.
 
+const fileUpload = require("express-fileupload")
 // Declare the Express app instance.
 const app = express();
 
 // Define the port number on which the server will listen.
 const port = 5000;
 
-require('dotenv').config();
+
 // Establish a connection to the MongoDB database using the specified connection string.
 db_connection(process.env.MONGO_URL);
 
@@ -54,6 +55,10 @@ app.use(cors({
     origin:["*"],
     methods:["GET", "POST", "PUT", "PATCH","DELETE"],
     credentials:true
+}));
+
+app.use(fileUpload({
+    useTempFiles:true,
 }));
 
 // Parse URL-encoded data with the querystring library.

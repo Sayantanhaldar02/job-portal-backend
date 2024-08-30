@@ -1,14 +1,32 @@
 const EmployerProfileModel = require("../models/employer_profile.model");
 const TestModel = require("../models/test_model");
 const {
-    delete_sub_folder
+    delete_sub_folder,
+    Cloudnary_image_service
 } = require("../service/job_seeker_image.service");
 // Import the EmployerProfileModel to interact with the employer profile collection in the database.
+
+
+
+
+
+
+
+
+
 
 // Create employer profile
 const handel_create_employer_profile = async (req, res) => {
     // console.log(req.body)
     // console.log(req.files)
+    // const file  = req.files.company_logo
+    // // console.log(file)
+
+    // const result = await Cloudnary_image_service(file)
+    // console.log(result)
+
+
+
     try {
         // Find an existing employer's profile by the user ID from the request.
         const profile = await EmployerProfileModel.findOne({
@@ -23,7 +41,7 @@ const handel_create_employer_profile = async (req, res) => {
         // If no profile exists, create a new employer profile using the request body.
         // const new_profile = await new EmployerProfileModel(req.body);
         const new_profile = await EmployerProfileModel.create(req.body)
-        new_profile.company_logo = req.files['company_logo'] && req.files['company_logo'][0]; // Set the company_logo field to the
+        new_profile.company_logo = req.files.company_logo &&  await Cloudnary_image_service(req.files.company_logo); // Set the company_logo field to the
         new_profile.created_by = req.user.user_id; // Set the created_by field to the user's ID.
         await new_profile.save(); // Save the new profile to the database.
 
@@ -81,7 +99,7 @@ const handel_update_employer_profile = async (req, res) => {
             created_by: id
         }, {
             ...update_element,
-            company_logo: req.files['company_logo'] ? req.files['company_logo'][0] : emp_p.company_logo,
+            company_logo: req.files.company_logo ? Cloudnary_image_service(req.files.company_logo) : emp_p.company_logo,
         }, {
             runValidators: true, // Ensure the update data passes schema validation.
             new: true // Return the updated profile.
