@@ -87,13 +87,26 @@ cloudinary.config({
 });
 
 const Cloudnary_image_service = (file) => {
+  // return new Promise((resolve, reject) => {
+  //   cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
+  //     if (err) {
+  //       return reject(err);
+  //     }
+  //     // console.log(result.secure_url)
+  //     resolve(result.secure_url);
+  //   });
+  // });
+
   return new Promise((resolve, reject) => {
-    cloudinary.uploader.upload(file.tempFilePath, (err, result) => {
-      if (err) {
-        return reject(err);
+    cloudinary.uploader.upload_stream(
+      { resource_type: 'auto' },
+      (error, result) => {
+        if (error) {
+          return reject(error);
+        }
+        resolve(result.secure_url);
       }
-      resolve(result.secure_url);
-    });
+    ).end(file.data); // Send the file buffer to Cloudinary
   });
 }
 

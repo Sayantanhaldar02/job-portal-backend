@@ -57,9 +57,7 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(fileUpload({
-    useTempFiles: true,
-}));
+app.use(fileUpload());
 
 // Parse URL-encoded data with the querystring library.
 app.use(express.urlencoded({
