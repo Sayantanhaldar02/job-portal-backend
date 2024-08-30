@@ -8,7 +8,6 @@ const {
     handel_create_employer_profile,
     handel_update_employer_profile,
     handel_delete_employer_profile,
-    handel_employer_profile_image
 } = require("../controller/employer_profile.controller");
 // Import the handler functions for managing employer profiles from the employer_profile.controller file.
 
@@ -45,7 +44,6 @@ router.route("/")
 // If the user is authenticated, the handel_delete_employer_profile function is called to handle the request.
 
 
-// router.post('/emp-img-upload',authenticateTo(["employer"]), cpUpload, handel_employer_profile_image)
 module.exports = {
     empProfileRouter: router
 }

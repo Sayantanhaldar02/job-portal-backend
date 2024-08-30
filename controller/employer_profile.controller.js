@@ -139,31 +139,11 @@ const handel_delete_employer_profile = async (req, res) => {
     });
 }
 
-// const handel_employer_profile_image = async (req, res) => {
-//     try {
-//         // console.log(req.files)
-//         const test = await new TestModel(req.body);
-//         test.com_image = req.files.com_image[0].path;
-//         test.user_id = req.user.user_id;
-//         await test.save();
-//         return res.status(201).json({
-//             message: "Image Inserted successfully"
-//         });
-//     } catch (error) {
-//         return res.status(400).json({
-//             message: "image not upload",
-//             error:error.message
-//         });
-//     }
-
-// }
 
 module.exports = {
     handel_create_employer_profile,
     handel_get_employer_profile,
     handel_update_employer_profile,
     handel_delete_employer_profile,
-
-    handel_employer_profile_image
     // Export the handler functions for use in the routing module.
 }
