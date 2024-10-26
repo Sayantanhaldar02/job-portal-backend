@@ -51,11 +51,12 @@ db_connection(process.env.MONGO_URL);
 
 // Use middlewares
 // Enable CORS for handling cross-origin requests.
-app.use(cors({
-    origin: ["*"],
-    methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
-    credentials: true
-}));
+app.use(cors());
+// app.use(cors({
+//     origin: ["*"],
+//     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
+//     credentials: true
+// }));
 
 app.use(fileUpload({
     limits: {
